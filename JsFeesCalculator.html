@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fees Calculator</title>
+	<link rel="stylesheet" href="mdb/css/bootstrap.css">
+	<link rel="stylesheet" href="mdb/css/mdb.css">
+
+	<style>
+		#main-h3{
+			text-align: center;
+		}
+		
+table tr{
+	margin-top:10px;
+}
+table tr td{
+	margin-left:20px;
+}
+input[type='text'],input[type='check-box']
+{
+	margin-left: 46px;
+}
+#select1{
+	width:170px;
+	height:25px;
+	margin-left:15px;
+}
+#cfees
+{margin-left: 0px;}
+#tot_fees
+{
+	width:170px;
+	height:25px;
+	margin-left:40px;
+}
+input[type='radio']
+{
+	margin-left: 40px;
+}
+#submit{
+	margin-left: 190px;
+	margin-top: 20px;
+	background-color: white;
+	box-shadow: white 20px;
+}
+#submit:hover{
+	box-shadow: white 50px;
+	cursor:pointer;
+	background-color: orange;
+}
+
+
+	</style>
+	
+</head>
+<body>
+<div class="container mt-lg-5" style ="max-width: 600px;" align="center;">
+		<div class="row" >
+			<div class="col-md-10">
+				<div class="card">
+					<div class="card-header bg-primary text-white text-center">
+						<h5 class="card-title">JS Fees Payment Calculator</h5>
+					</div>
+						<div class="card-body bg-success" style="height:400px;">
+							<div class="row" >
+							<div class="col-md-10">
+							<form>
+							  	<table>
+							       <tr class="row"><td colspan="2"><label id="label1">Select Course  :</label></td> 
+										<td colspan="2"><select id="select1">
+											<option>---Select---</option>
+											<option value='java'>Java</option>
+											<option value='python'>Python</option>
+											<option value='angular'>Angular</option>
+					 						</select>
+										</td>
+									</tr>
+															
+								<tr class="row"><td colspan="2"><label id="label2">Total Fees : </label></td>
+									<td colspan="2"><button type="button"  name="tot_fees" id="tot_fees"></button></td>
+								</tr>
+				
+								<tr class="row" id="row12"><td><label class="form-check-label" id="caste">Caste : </label></td>
+   									<td><input type="radio"  name="caste" value="obc" id="obc">OBC</td>
+   									<td><input type="radio"  name="caste" value="bc" id="bc">BC</td>
+   									<td><input type="radio"  name="caste" value="sc" id="sc">SC</td>
+   								</tr>
+   								<tr class="row"><td colspan="2"><label>Concession Fess :</label></td>
+   									<td colspan="2"><input type="text" name="confees" id="cfees" readonly="true"></td>
+   								</tr><br>
+   								<tr class="row"><td colspan="2"><label>Fees Paid :</label></td>
+   									<td colspan="2"><input type="text" name="paidfees" id="paidfees"></td>
+   								</tr><br>
+   								<tr class="row"><td colspan="2"><label>Due Fees :</label></td>
+   									<td colspan="2"><input type="text" name="duefees" id="duefees" readonly="true"></td>
+   								</tr>
+								</table>
+								<!-- <button type="button" id="submit">Calculator</button> -->
+						</form>	
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		
+		var fees=0;
+		var Concession_fees=0;
+		
+		var course=document.querySelector("#select1");
+		course.addEventListener("change",function()
+
+		{	let selected_course=course.value;
+			let total_amount=document.querySelector("#tot_fees");
+			
+			if(selected_course==='java'){
+				fees=25000;
+			total_amount.innerText=fees;
+		}
+		else if(selected_course==='python'){
+				fees=20000;
+			total_amount.innerText=fees;
+		}
+		else if(selected_course==='angular'){
+				fees=30000;
+			total_amount.innerText=fees;
+		}
+
+		
+		let caste_obc=document.querySelector("#obc");
+		let caste_bc=document.querySelector("#bc");
+		let caste_sc=document.querySelector("#sc");
+		
+		console.log(caste_obc);
+		console.log(caste_bc);
+		console.log(caste_sc);
+		
+		caste_obc.addEventListener("click",function()
+		{	  confees=document.querySelector("#cfees");
+				confees.value=1000;
+				Concession_fees=confees.value;
+			});
+		caste_bc.addEventListener("click",function()
+		{	  confees=document.querySelector("#cfees");
+			
+				confees.value=2000;
+				Concession_fees=confees.value;
+			});
+		caste_sc.addEventListener("click",function()
+		{	 let confees=document.querySelector("#cfees");
+			
+				confees.value=3000;
+				Concession_fees=confees.value;
+			});
+
+		let fees_paid=document.querySelector("#paidfees");
+			fees_paid.addEventListener("change",function()
+			{  let paidamount=fees_paid.value;
+				let due_fees=document.getElementById("duefees");
+					due_fees.value=fees-Concession_fees-paidamount;
+						if(due_fees.value>=0)due_fees.style.color="red";
+						else due_fees.style.color="blue";;
+					// else {due_fees.style.color="green";}
+							
+
+			});
+
+		
+		});
+		
+
+
+
+	</script>
+</body>
+</html>
